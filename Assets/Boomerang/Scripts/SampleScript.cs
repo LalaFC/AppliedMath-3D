@@ -6,16 +6,21 @@ public class SampleScript : MonoBehaviour
     public Slider Aim;
     [SerializeField] float centerPoint = 5f; 
     public float speed = 2f; 
-    public Transform Player;
+    [SerializeField] Transform Player;
     [SerializeField]private float angle;
     private Vector3 offset;
 
     private int cycleCount=0;
 
+    private void Start()
+    {
+        Player = PlayerManager.instance.player.transform;
+        centerPoint = PlayerManager.instance.force.value;
+    }
     private void Update()
     {
         Vector3 pointedEndPosition = CalculatePosition(0);
-        offset = new Vector3(0, Player.position.y - pointedEndPosition.y, Player.position.z - pointedEndPosition.z);
+        offset = new Vector3(0, (Player.position.y+3) - pointedEndPosition.y, Player.position.z - pointedEndPosition.z);
 
         angle += speed * Time.deltaTime;
         float normalizedAngle = angle % (2 * Mathf.PI);
@@ -25,7 +30,7 @@ public class SampleScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "EndPoint")
         {
             cycleCount++;
             Debug.Log("Object has returned to initial position " + (cycleCount) + " times.");

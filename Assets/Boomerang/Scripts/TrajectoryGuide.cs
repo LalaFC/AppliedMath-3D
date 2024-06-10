@@ -6,16 +6,18 @@ using UnityEngine.Events;
 
 public class TrajectoryGuide : MonoBehaviour
 {
+    public Transform Player;
+
     [SerializeField] GameObject guidePoint;
     [SerializeField] List<GameObject> guides;
     [SerializeField] float maxNumber;
 
     [SerializeField] float centerPoint = 5f;
     public float speed = 1f;
-    public Transform Player;
+    
     [SerializeField] private float angle;
-    private Vector3 offset;
 
+    private Vector3 offset;
     private Vector3 initialPosition;
 
     int points = 0;
@@ -25,6 +27,7 @@ public class TrajectoryGuide : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        initialPosition = transform.position;
         guides = new List<GameObject>();
 
         // Pool regular bullets
@@ -34,6 +37,11 @@ public class TrajectoryGuide : MonoBehaviour
             obj.SetActive(false);
             guides.Add(obj);
         }
+    }
+    private void Start()
+    {
+        Player = PlayerManager.instance.player.transform;
+        centerPoint = PlayerManager.instance.force.value;
     }
 
 
@@ -54,10 +62,18 @@ public class TrajectoryGuide : MonoBehaviour
             {
                 guide.gameObject.SetActive(false);
             }
+            centerPoint = PlayerManager.instance.force.value;
             canGuide = true;
         }
         if (canGuide)
             InstantiateGuide();
+    }
+    public void changeTrajectory()
+    {
+        //reset pos and rot
+        transform.position = initialPosition; 
+        transform.rotation = Quaternion.identity;
+        InstantiateGuide();
     }
 
     void InstantiateGuide()

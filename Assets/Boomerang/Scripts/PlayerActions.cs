@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject boomerang;
+    public Transform SpawnPt;
+    public void Shoot()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Instantiate(boomerang, SpawnPt.position, Quaternion.identity);
     }
 }
