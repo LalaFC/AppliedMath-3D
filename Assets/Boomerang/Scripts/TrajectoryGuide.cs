@@ -57,18 +57,18 @@ public class TrajectoryGuide : MonoBehaviour
         {
             this.GetComponent<LineRenderer>().enabled = true;
         }
-        int segments = 100; // Number of segments to approximate the circle
-        lineRenderer.positionCount = segments + 1; // One extra point to close the loop
+        int segments = 100; 
+        lineRenderer.positionCount = segments + 1; 
         Vector3[] positions = new Vector3[segments + 1];
 
-        float playerYRotation = Player.eulerAngles.y; // Get the player's y-axis rotation
-        Quaternion rotation = Quaternion.Euler(0, playerYRotation, 0); // Create a rotation quaternion
+        float playerYRotation = Player.eulerAngles.y; 
+        Quaternion rotation = Quaternion.Euler(0, playerYRotation, 0); 
 
         for (int i = 0; i <= segments; i++)
         {
             float segmentAngle = (i * 2 * Mathf.PI) / segments;
             Vector3 position = CalculatePosition(segmentAngle) + offset;
-            positions[i] = rotation * position; // Apply the player's y-axis rotation
+            positions[i] = rotation * position; 
         }
 
         lineRenderer.SetPositions(positions);
@@ -76,10 +76,8 @@ public class TrajectoryGuide : MonoBehaviour
     }
     void CheckTarget()
     {
-        // Define a small tolerance for distance checking
         float tolerance;
 
-        // Iterate through the points in the LineRenderer
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
             Vector3 pathPoint = lineRenderer.GetPosition(i);
@@ -98,7 +96,7 @@ public class TrajectoryGuide : MonoBehaviour
                 { 
                     if (outline != null)
                     {
-                        outline.OutlineWidth = 5;
+                        outline.OutlineWidth = 10;
                     }
 
                     Debug.Log("Target is within the path!");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -10,11 +11,21 @@ public class PlayerActions : MonoBehaviour
     public Transform SpawnPt;
     public static UnityEvent onPlayerShoot = new UnityEvent();
     private bool camEnabled=true;
+    public Button shootBtn;
     private void Start()
     {
         boomerang = PlayerManager.instance.boomerang;
         SpawnPt = transform.GetChild(0);
     }
+    public void EnableShoot()
+    {
+        shootBtn.interactable= true;
+    }
+    public void DisableShoot()
+    {
+        shootBtn.interactable = false;
+    }
+
     public void Shoot()
     {
         StartCoroutine(ShootDelay());
@@ -33,6 +44,6 @@ public class PlayerActions : MonoBehaviour
     {
         camEnabled = !camEnabled;
         PlayerManager.instance.playerCam.gameObject.SetActive(camEnabled);
-        transform.GetChild(0).gameObject.SetActive(camEnabled);
+        transform.GetChild(1).gameObject.SetActive(camEnabled);
     }
 }

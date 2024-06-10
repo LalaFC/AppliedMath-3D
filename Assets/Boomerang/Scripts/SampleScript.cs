@@ -42,6 +42,11 @@ public class SampleScript : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        else if(collision.gameObject.tag == "Target")
+        {
+            collision.gameObject.SetActive(false);
+            Debug.Log("Target Hit!");
+        }
     }
 
     private void OnDisable()
