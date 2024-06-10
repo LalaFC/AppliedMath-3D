@@ -7,6 +7,7 @@ TagManager:
   - Selectable
   - EndPoint
   - Force
+  - Target
   layers:
   - Default
   - TransparentFX

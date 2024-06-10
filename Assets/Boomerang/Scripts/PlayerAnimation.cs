@@ -16,6 +16,7 @@ public class PlayerAnimation : MonoBehaviour
         
         PlayerMovement.onPlayerMove.AddListener(Move);
         PlayerMovement.onPlayerIdle.AddListener(Idle);
+        PlayerActions.onPlayerShoot.AddListener(Shoot);
     }
 
     // Update is called once per frame
@@ -30,5 +31,9 @@ public class PlayerAnimation : MonoBehaviour
     void Idle()
     {
         anim.SetFloat("velocity", 0);
+    }
+    void Shoot()
+    {
+        anim.SetTrigger("attack");
     }
 }

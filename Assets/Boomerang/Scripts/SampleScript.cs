@@ -37,6 +37,8 @@ public class SampleScript : MonoBehaviour
             if (cycleCount == 1)
             {
                 transform.position = new Vector3(0.255102038f, 0.765306115f, 0.586734712f);
+                PlayerManager.instance.actions.ChangeCam();
+                PlayerManager.instance.trajectory.GuideSwitch();
                 Destroy(this.gameObject);
             }
         }
